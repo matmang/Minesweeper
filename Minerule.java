@@ -7,6 +7,9 @@ public class Minerule {
     private String NONE = "x";
     private String mineBoard[][];
 
+    private int[] x = {-1, 0, 1, 1, 1, 0, -1, -1};
+    private int[] y = {-1, -1, -1, 0, 1, 1, 1, 0};
+    
     public Minerule(int row, int col){
         ROW = row;
         COL = col;
@@ -22,15 +25,10 @@ public class Minerule {
 
     private int getMineNumber(int row, int col){
         int mineCnt = 0;
-        if(isExistMine(row-1, col-1))mineCnt++;
-        if(isExistMine(row-1, col))mineCnt++;
-        if(isExistMine(row-1, col+1))mineCnt++;
-        if(isExistMine(row, col-1))mineCnt++;
-        if(isExistMine(row, col+1))mineCnt++;
-        if(isExistMine(row+1, col-1))mineCnt++;
-        if(isExistMine(row+1, col))mineCnt++;
-        if(isExistMine(row+1, col+1))mineCnt++;
-
+        
+        for(int i = 0; i < 8; i++){
+            if(isExistMine(row+x[i], col+y[i]))mineCnt++;    
+        }
         return mineCnt;
     }
 
