@@ -1,15 +1,13 @@
 # MineSweeper
 
-# 기여자
+## 기여자
 
- 김지우 (Jiwoo Kim) 
-=============
+ *김지우 (Jiwoo Kim) 
 
- 정태준(TaeJun Jung)
-=============
+ *정태준(TaeJun Jung)
 
- 한경수(GyungSoo Han)
-=============
+ *한경수(GyungSoo Han)
+
 
 Hanyang University ERICA , Dvision of Software
 ---
