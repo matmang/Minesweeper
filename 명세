@@ -1,0 +1,28 @@
+Class MineCell // 칸 하나의 정보
+
+//필드변수
+private int state; // 주변 지뢰의 개수(0~8) 또는 자신이 지뢰인지(9) 
+private int x; // board 에서 열 좌표
+private int y; // board 에서 행 좌표
+
+//메소드
+public int valueOf(); // state 반환
+public int[] xyOf(); // x좌표, y좌표 배열로 반환 [0] == x, [1] == y
+
+==================
+
+Class MineBoard // 게임보드의 정보를 바꿔줄 메소드를 가진 클래스
+
+//필드변수
+private int size; // 판 크기
+Private MineCell[][] board; // 판
+
+//메소드
+Public void setboard(MineCell[][] b, int s); // 난이도에 따라 게임보드를 저장
+Public MineCell[][] contents(); // 판을 반환하는 메소드
+Public boolean Click(int x, int y); // 클릭한 곳의 좌표를 받아 그곳의 정보를 오픈
+
+==========================
+
+Class MineFrame // 프레임
+
