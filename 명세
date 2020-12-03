@@ -1,12 +1,21 @@
 Class MineCell // 칸 하나의 정보
 
-//필드변수
-private int state; // 주변 지뢰의 개수(0~8) 또는 자신이 지뢰인지(9) 
-private String face_value; 
-
-//메소드
-public int valueOf(); // state 반환
-public int[] xyOf(); // x좌표, y좌표 배열로 반환 [0] == x, [1] == y
+// 필드변수
+private boolean ismine = false; // 지뢰인지 아닌지
+private int neighbor_count = 0; // 주의의 지뢰의 개수를 저장하는 변수
+private String face_value; // 0~8지뢰 개수, # 플래그, * 지뢰
+    
+// 생성자
+public MineCell(String value){
+    face_value = value;
+}
+    
+// 메소드
+public void setMine(boolean s) { ismine = s; } // 지뢰인지 아닌지 변환
+public boolean getMine() { return ismine; } // 지뢰인지 아닌지 부울값으로 반환
+public void setNeighbor_count(int n) { neighbor_count = n; } // 주변 지뢰 개수를 변환
+public int getNeighbor_count() { return neighbor_count; } // 주변 지뢰 개수를 반환
+public boolean getflag() { return face_value == '#'; } // 만약 플래스가 세워져있으면 true, 아니면 false;
 
 ==================
 
