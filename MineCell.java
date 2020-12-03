@@ -1,6 +1,6 @@
 public class MineCell {
     private boolean ismine = false;
-    private int neighbor_count = 0;
+    private int neighbor_count = 0; // 주의의 지뢰의 개수를 저장하는 변수, 9이면 지뢰로 간주
     private String face_value;
     
     public MineCell(String value){
