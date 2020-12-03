@@ -2,8 +2,7 @@ Class MineCell // 칸 하나의 정보
 
 //필드변수
 private int state; // 주변 지뢰의 개수(0~8) 또는 자신이 지뢰인지(9) 
-private int x; // board 에서 열 좌표
-private int y; // board 에서 행 좌표
+private String face_value; 
 
 //메소드
 public int valueOf(); // state 반환
