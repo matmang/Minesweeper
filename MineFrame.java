@@ -34,13 +34,8 @@ public class MineFrame extends JFrame{
 		MineCell[][] r = board.answerboard();
 		for(int i=0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
-				if(r[i][j].getNeighbor_count() == 9) {
-					button[i][j].setBackground(Color.white);
-					button[i][j].setText("※");
-				}else {
-					button[i][j].setBackground(Color.white);
-					button[i][j].setText(""+r[i][j].getNeighbor_count());
-				}
+				button[i][j].setBackground(Color.white);
+				button[i][j].setMineCell(r[i][j]);
 			}
 		}
 	}
