@@ -1,32 +1,47 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class MineFrame extends JFrame {
 
-    ImageIcon icon0 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine0.png");
-    ImageIcon icon1 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine1.png");
-    ImageIcon icon2 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine2.png");
-    ImageIcon icon3 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine3.png");
-    ImageIcon icon4 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine4.png");
-    ImageIcon icon5 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine5.png");
-    ImageIcon icon6 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine6.png");
-    ImageIcon icon7 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine7.png");
-    ImageIcon icon8 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine8.png");
-    ImageIcon icon9 = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine9.png");
+    private ImageIcon[] icon = {
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine0.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine1.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine2.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine3.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine4.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine5.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine6.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine7.png"),
+            new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine8.png")
+    };
+
+    ImageIcon icon_empty = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine_empty.png");
     ImageIcon icon_mine = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine.png");
-    ImageIcon icon_reset = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\reset.png");
     ImageIcon icon_flag = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\flag.png");
     ImageIcon icon_flagx = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\flagx.png");
-    ImageIcon logo = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\mine0\\logo.png");
+    ImageIcon icon_reset = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\reset.png");
+    ImageIcon logo = new ImageIcon("C:\\Users\\jysko\\IdeaProjects\\2주차 실습\\src\\images\\logo.png");
 
     JButton reset = new JButton();
     private Board board;
-    private int button_size = 50;
+    private int button_size = 45;
     private int size = 10;
     private MineButton[][] button;
     private boolean[][] visit;
@@ -42,7 +57,6 @@ public class MineFrame extends JFrame {
         button = new MineButton[size][size];
         visit = new boolean[size][size];
         JPanel minegame = new JPanel(new GridLayout(size, size));
-        FlagButton flagbutton = new FlagButton("Flag mod disable");
         Container cp = getContentPane();
         JPanel p1 = new JPanel(new FlowLayout());
 
@@ -69,42 +83,41 @@ public class MineFrame extends JFrame {
         reset.setContentAreaFilled(false);
         reset.setFocusPainted(false);
         reset.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "단계를 리셋합니다.");
-                    dispose();
-                    new MineFrame(size ,board);
-                }
-            });
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "단계를 리셋합니다.");
+                dispose();
+                new MineFrame(size ,new Board(size));
+            }
+        });
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                button[i][j] = new MineButton(board, this, flagbutton, size);
-                    minegame.add(button[i][j]);
-                    visit[i][j] = false;
-                }
+                button[i][j] = new MineButton(board, this);
+                minegame.add(button[i][j]);
+                visit[i][j] = false;
             }
-
+        }
         setVisible(true);
         setResizable(true);
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         cp.setLayout(new BorderLayout());
-        p1.add(flagbutton);
 
         cp.add(p1, BorderLayout.NORTH);
         cp.add(minegame, BorderLayout.CENTER);
 
         update();
-        setSize(size * button_size + 10, size * button_size + 10);
+        setSize(size * button_size + 10, size * button_size + 30);
         setVisible(true);
     }
 
-    public void update() {
+    private void update() {
         MineCell[][] r = board.answerboard();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                button[i][j].setBackground(Color.black);
+                button[i][j].setIcon(icon_empty);
                 button[i][j].setMineCell(r[i][j]);
+                button[i][j].setBackground(Color.BLACK);
             }
         }
     }
@@ -122,12 +135,9 @@ public class MineFrame extends JFrame {
         while (!x_list.isEmpty()) {
             int xx = x_list.poll();
             int yy = y_list.poll();
-            if(r[yy][xx].getNeighbor_count() == 0) {
-                button[yy][xx].setText(" ");
-            }else {
-                button[yy][xx].setText("" + r[yy][xx].getNeighbor_count());
-            }
-            button[yy][xx].setBackground(Color.white);
+            button[yy][xx].setIcon(icon[r[yy][xx].getNeighbor_count()]);
+            button[yy][xx].setBackground(Color.WHITE);
+            r[yy][xx].set_click(true);
             if (r[yy][xx].getNeighbor_count() == 0) {
                 for (int k = 0; k < 8; k++) {
                     int X = xx + x[k];
@@ -147,10 +157,24 @@ public class MineFrame extends JFrame {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if(r[i][j].getMine()) {
-                    button[i][j].setBackground(Color.blue);
-                    button[i][j].setText("#");
+                    button[i][j].setBackground(Color.WHITE);
+                    button[i][j].setIcon(icon_mine);
+                    r[i][j].set_click(true);
                 }
             }
         }
+    }
+
+    public boolean open_check() {
+        MineCell[][] r = board.answerboard();
+        int cnt = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if(r[i][j].getclick()) {
+                    cnt++;
+                }
+            }
+        }
+        return board.getopen() == cnt;
     }
 }
